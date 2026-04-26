@@ -1,3 +1,4 @@
+// creates a connection pool to the PostgreSQL database using the 'pg' library and exports it for use in other parts of the application using QUERIES.
 // imports
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
