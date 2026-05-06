@@ -1,15 +1,13 @@
+require('dotenv').config(); // load environment variables from .env file
+
 // imports
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const pool = require('./db/index');
 
 // routes
 const authRoutes = require('./routes/auth');
 const testRoute = require('./routes/test_route');
-
-// load .env file
-dotenv.config();
 
 // creates the backend server
 const app = express();
@@ -20,6 +18,8 @@ app.use(express.json()); // read frontend JSON
 
 // routes
 app.use('/api/auth', authRoutes); // mount auth routes at /api/auth
+
+
 app.use('/', testRoute); // separate test route for testing purposes
 
 // reads PORT from .env

@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const pool = require('../db/index');
 
+const authMiddleware = require('../middleware/auth');
+
 // POST /api/auth/register endpoint for user registration
 router.post('/register', async (req, res) => {
     const { email, password } = req.body;
@@ -86,7 +88,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({error: 'Invalid credentials!'})
         }
 
-        const token = await jwt.sign(
+        const token = jwt.sign(
             { userId: userAcc.rows[0].id },
             process.env.JWT_SECRET,
             { expiresIn: '24h' }
@@ -102,6 +104,24 @@ router.post('/login', async (req, res) => {
         res.status(500).json({error: 'Server error'})
     }
 })
+
+// 4.5. Add a protected GET /api/auth/me route that returns the logged-in user's info
+router.get('/me', authMiddleware, async (req, res) => {
+    try {
+        const user = await pool.query(
+            'SELECT id, email, created_at FROM users WHERE id = $1', [req.user.userId]
+        )
+
+        if (user.rows.length === 0) {
+            return res.status(404).json({message: 'No users found!'})
+        }
+
+        return res.status(200).json(user.rows[0]);
+    } catch (err) {
+        return res.status(500).json({error: 'Internal server error'})
+    }
+})
+
 
 // GET api/auth/users
 router.get('/users', async (req, res) => {
