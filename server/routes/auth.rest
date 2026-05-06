@@ -1,3 +1,3 @@
 ### Get Me
 GET http://localhost:5000/api/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc3Nzc2OTMwMSwiZXhwIjoxNzc3ODU1NzAxfQ.4_X_4GZgrxMRHs9JlcP9N3sqHMZjwJAyB-NDMpm085k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImlhdCI6MTc3ODAyNzIzMiwiZXhwIjoxNzc4MTEzNjMyfQ.Bcm1_q0THRAb6_mr0BQs0WZjpMVz4afEVv2FB7nhAAc
